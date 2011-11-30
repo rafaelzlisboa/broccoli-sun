@@ -18,4 +18,4 @@ to eat your broccoli. Uh.
 `main-consumer` will ask which file you want to use as a base and how many top-match images it should return.
 
 
-Please note that, at least for now, `broccoli-sun` only supports PNG images. 
+Please note that, at least for now, `broccoli-sun` only supports PNG images and displays many false positives. 
