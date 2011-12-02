@@ -34,12 +34,14 @@ function chop(img_filename, mm_rows, mm_cols)
 			j = 1;
 			while (j <= cols_img)
 				sliced_img = img_merged(i:i + mm_rows - 1, j:j + mm_cols - 1);
+				sliced_img_rgb = img(i:i + mm_rows - 1, j:j + mm_cols - 1);
 				num_sliced_imgs += 1;
 
 				# for texture we only need the intensities (0...1)
 				data_texture = [data_texture, extract_data_texture(normalize_merged_intensities(sliced_img(:)))];
 
-				data_color(num_sliced_imgs) = extract_data_color(normalize_merged_intensities(sliced_img(:)));
+				# data_color(num_sliced_imgs) = extract_data_color(normalize_merged_intensities(sliced_img(:)));
+				data_color = [data_color, extract_data_color_rgb(sliced_img(:)) ];
 
 				j += mm_cols;
 			endwhile

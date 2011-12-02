@@ -7,6 +7,9 @@ function res = extract_data_color(chop_img)
   res = median(chop_img);
 endfunction
 
+function res = extract_data_color_rgb(chop_img)
+  res = unmerge_rgb_pixel(extract_data_color(chop_img));
+endfunction
 
 # using 1st 2nd 3rd 4th momentum
 function res = extract_data_texture(chop_img)
@@ -28,6 +31,15 @@ function res = unmerge_rgb(merged_rgb)
     res(i, 3) = mod(mod(merged_rgb(i), 65536), 256);
   endfor
 endfunction
+
+function res = unmerge_rgb_pixel(merged_rgb)
+  res = [];
+  res(1) = floor(merged_rgb/65536);
+  res(2) = floor(mod(merged_rgb, 65536) / 256);
+  res(3) = mod(mod(merged_rgb, 65536), 256);
+  res = res';
+endfunction
+
 
 function res = normalize_merged_intensities(img_merged)
   res = double(img_merged)/(256*256*255 + 256*255 + 255);

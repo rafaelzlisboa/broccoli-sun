@@ -23,7 +23,7 @@ for i = 1:rows(dir_png_files)
 
 	# open color csv file and compare
 	data_color = csvread([filename, ".color.csv"]);
-	data_struct.color = sum((data_color - base_img_data_color).**2);
+	data_struct.color = sum(sum((data_color - base_img_data_color).**2));
 
 	# open texture csv file and compare
 	data_texture = csvread([filename, ".texture.csv"]);
@@ -36,7 +36,7 @@ for i = 1:rows(dir_png_files)
 endfor
 
 # sort results
-[ordered_numbers, ordered_indexes] = sort(arrayfun(@(i) data_results(i).color - sum(data_results(i).texture), 1:numel(data_results)));
+[ordered_numbers, ordered_indexes] = sort(arrayfun(@(i) data_results(i).color - 1/sum(data_results(i).texture), 1:numel(data_results)));
 
 ordered_results = data_results(ordered_indexes);
 
@@ -44,3 +44,11 @@ ordered_results = data_results(ordered_indexes);
 for i = 1:img_num
 	printf("%d. %s\n", i, ordered_results(i).filename);
 endfor
+
+printf("to see them, use:\n $ open %s ", base_img_filename);
+for i = 1:img_num
+	printf("%s ", ordered_results(i).filename);
+endfor
+printf("\n");
+	
+	
